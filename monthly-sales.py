@@ -25,7 +25,7 @@ unique_list = list(set([p["product"] for p in sales_data]))
 
 top_sellers = []
 for sales_item in unique_list:
-  item_monthly_sales = sum([float(row["sales price"]) for row in sales_data])
+  item_monthly_sales = sum([float(row["sales price"]) for row in sales_data if row["product"] == sales_item])
   d = {"product": sales_item, "monthly_sales":item_monthly_sales}
   top_sellers.append(d)
   print(d["product"], d["monthly_sales"])
