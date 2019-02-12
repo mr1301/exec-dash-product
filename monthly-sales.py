@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 # monthly_sales.py
 
 # TODO: import some modules and/or packages here
@@ -16,20 +17,23 @@ with open(csv_file_path, "r") as csv_file:  # "r" means "open the file for readi
         #print(d["product"], d["unit price"])
         sales_data.append(d)
 
+
+def to_usd(my_price):
+  return f"${my_price:,.2f}"
 #************************** Above Import Data Using CSV***********************************
 sales_prices = [float(row["sales price"]) for row in sales_data]
 total_sales = sum(sales_prices)
 #print(total_sales)
 
-print("-----------------------")
+print("-------------------------------")
 print("MONTH: March 2018")
-print("-----------------------")
+print("-------------------------------")
 print("CRUNCHING THE DATA...")
-print("-----------------------")
-print("TOTAL MONTHLY SALES: $12,000.71")
+print("-------------------------------")
+print("TOTAL MONTHLY SALES:", str(to_usd(total_sales)))
 
 #*****************************Above Calc & Print Total Price********************************
-print("-----------------------")
+print("-------------------------------")
 print("TOP SELLING PRODUCTS:")
 
 unique_list = list(set([p["product"] for p in sales_data]))
@@ -38,25 +42,22 @@ unique_list = list(set([p["product"] for p in sales_data]))
 top_sellers = []
 for sales_item in unique_list:
   item_monthly_sales = sum([float(row["sales price"]) for row in sales_data if row["product"] == sales_item])
-  d = {"product": sales_item, "monthly_sales":item_monthly_sales}
+  d = {"product": sales_item, "monthly_sales":to_usd(item_monthly_sales)}
   top_sellers.append(d)
   print(d["product"], d["monthly_sales"])
 
 #*******************************Above List of Products & Sales***********************************
 
-print("-----------------------")
+print("-------------------------------")
 print("VISUALIZING THE DATA...")
-genres = []
-viewer = []
+item = []
+sales = []
 
-for p in bar_data:
-    genres.append(p["genre"])
-    viewer.append(p["viewers"])
+for p in top_sellers:
+    item.append(p["product"])
+    sales.append(p["monthly_sales"])
 
-
-plt.bar(genres, viewer)
-plt.ylabel("People Per Genre")
-plt.xlabel("Movie Genres")
-plt.xticks(rotation=90)
-plt.title("Movie Genres & Viewers")
-#plt.show()
+plt.bar(item,sales)
+plt.ylabel("sales")
+plt.xlabel("item")
+plt.show()
