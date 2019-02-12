@@ -20,13 +20,19 @@ with open(csv_file_path, "r") as csv_file:  # "r" means "open the file for readi
 
 def to_usd(my_price):
   return f"${my_price:,.2f}"
+
+
 #************************** Above Import Data Using CSV***********************************
+month = "OCTOBER"  # TODO: get from file name or date values
+year = 2017
+
+
 sales_prices = [float(row["sales price"]) for row in sales_data]
 total_sales = sum(sales_prices)
 #print(total_sales)
 
 print("-------------------------------")
-print("MONTH: March 2018")
+print(f"MONTH: {month} {year}")
 print("-------------------------------")
 print("CRUNCHING THE DATA...")
 print("-------------------------------")
@@ -44,7 +50,7 @@ for sales_item in unique_list:
   item_monthly_sales = sum([float(row["sales price"]) for row in sales_data if row["product"] == sales_item])
   d = {"product": sales_item, "monthly_sales":to_usd(item_monthly_sales)}
   top_sellers.append(d)
-  print(d["product"], d["monthly_sales"])
+  print("+", d["product"], d["monthly_sales"])
 
 #*******************************Above List of Products & Sales***********************************
 
