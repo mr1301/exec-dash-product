@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import itertools
 from operator import itemgetter
 
 # monthly_sales.py
@@ -58,8 +59,11 @@ sorted_product_sales = sorted(product_sales, key=itemgetter("monthly_sales"), re
 top_sellers = sorted_product_sales[0:3]
 #print(type(top_sellers))
 
-
-
+#loop through top selling items and for each product print the product name and price
+rank = 1
+for d in top_sellers:
+    print("  " + str(rank) + " " + d["product"] + ": " + d["monthly_sales"]) #From Prof. Rossetti's pandas solutions
+    rank = rank + 1
 #*******************************Above List of Products & Sales***********************************
 
 breakpoint()
